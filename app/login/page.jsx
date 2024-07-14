@@ -1,7 +1,13 @@
 import React from 'react'
 import bg from './../../public/assets/images/bg-16.jpg';
 import LoginForm from './components/LoginForm';
+import { middleware } from '@/lib/middleware';
 
+const handler = (req, res) => {
+    middleware(req, res);
+    
+    res.status(200).json({ message: 'Middleware applied!' });
+  }
 
 const loginPage = () => {
    
