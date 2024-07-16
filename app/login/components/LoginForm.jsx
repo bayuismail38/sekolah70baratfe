@@ -38,12 +38,13 @@ const loginForm = () => {
         setSuccess(null);
     
         try {
-          const response = await fetch('https://localhost:44357/v1/Auth/Login', {
+            console.log(formData)
+          const response = await fetch('http://localhost:3000/api/auth', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: MappToUrl(formData),
+                'Content-Type': 'application/json',
+              },
+            body: JSON.stringify(formData),
           });
     
           const result = await response.json();
