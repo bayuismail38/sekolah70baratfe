@@ -1,12 +1,13 @@
 "use client"
 
-import { MappToUrl } from '@/helper/Helper';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 
+
 const loginForm = () => {
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
     
     const [formData, setFormData] = useState({
         Email: '',
@@ -29,21 +30,17 @@ const loginForm = () => {
         return true;
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
     
         setLoading(true);
         setError(null);
-        setSuccess(null);
     
         try {
-            console.log(formData)
           const response = await fetch('http://localhost:3000/api/auth', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
             body: JSON.stringify(formData),
           });
     
@@ -51,8 +48,9 @@ const loginForm = () => {
           if (!response.ok) {
             throw new Error(result.message || 'Something went wrong');
           }
-    
-          setSuccess('Form submitted successfully!');
+          if (result.statusMessage == "success") {
+            router.push("home");
+          }
         } catch (error) {
           setError(error.message);
         } finally {
