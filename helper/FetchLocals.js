@@ -1,8 +1,9 @@
 import { Fetch } from "./Helper";
 
-async function FetchLocal(url, method= "GET", contentType = [], body = {}, Header = {}){
+async function FetchLocal(url, method= "GET", body = {}){
     try {
-        return await Fetch(process.env.API_LOCAL_URL + url, method, contentType, body, Header)
+        const data = await Fetch(process.env.API_LOCAL_URL + url, method, body);
+        return data;
     } catch (error) {
         console.log(error)
     }

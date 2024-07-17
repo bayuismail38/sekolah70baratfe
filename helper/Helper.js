@@ -1,7 +1,7 @@
 import https from "https";
 import axios from "axios";
 
-async function Fetch(url, method = "GET", contentType = [], body = {}, Header = {}) {
+async function Fetch(url, method = "GET", body = {}, Header = {}) {
     const createHttpsAgent = () => {
         return new https.Agent({
           rejectUnauthorized: false,
@@ -10,25 +10,32 @@ async function Fetch(url, method = "GET", contentType = [], body = {}, Header = 
    
     const axiosConfig = {
         httpsAgent: createHttpsAgent(), // Gunakan HTTPS agent dengan konfigurasi
-        headers: {
-            'Content-Type': [],
-        },
     };
     var urlParams = new URLSearchParams;
     for (const iterator in body) {
         urlParams.append(iterator, body[iterator]);
     }
-    for (const iterator in Header) {
-        axiosConfig.headers[iterator] = Header[iterator];
+
+    
+    if (Object.keys(Header) > 0) {
+        for (const iterator in Header) {
+            axiosConfig.header[iterator] = Header[iterator]
+        }
     }
-    if(contentType.length > 0){
-        axiosConfig.headers["Content-Type"].push(contentType)
-    }
+ 
     let apiResponse = "";
-    if (method == "GET") {
+    if (method.toLowerCase() == "get") {
         apiResponse = await axios.get(`${url}`, urlParams.toString(), axiosConfig);
+    }else if (method.toLowerCase() == 'post') {
+        axiosConfig.header["Content-Type"] = "application/x-www-form-urlencoded"
+        apiResponse = await axios.post(`${url}`, urlParams.toString(), axiosConfig);    
+    }else if(method.toLocaleLowerCase() == 'delete'){
+        apiResponse = await axios.delete(`${url}`, urlParams.toString(), axiosConfig);    
+    }else if(method.toLocaleLowerCase() == 'put'){
+        axiosConfig.header["Content-Type"] = "application/x-www-form-urlencoded"
+        apiResponse = await axios.put(`${url}`, urlParams.toString(), axiosConfig);    
     }else{
-        apiResponse = await axios.post(`${url}`, urlParams.toString(), axiosConfig);
+        throw "method didnt compatible"
     }
 
     const data = apiResponse.data;
