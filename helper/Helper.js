@@ -1,7 +1,7 @@
 import https from "https";
 import axios from "axios";
 
-async function Fetch(url, contentType = [], body = {}) {
+async function Fetch(url, contentType = [], body = {}, Header = []) {
     const createHttpsAgent = () => {
         return new https.Agent({
           rejectUnauthorized: false,
@@ -12,6 +12,7 @@ async function Fetch(url, contentType = [], body = {}) {
         httpsAgent: createHttpsAgent(), // Gunakan HTTPS agent dengan konfigurasi
         headers: {
             'Content-Type': [],
+            ...Header
         },
     };
     var urlParams = new URLSearchParams;
