@@ -1,29 +1,19 @@
 import axios from 'axios';
 import React from 'react';
 import https from 'https';
+import { Fetch } from '@/helper/Helper';
+import FetchLocal from '@/helper/FetchLocals';
 
 
 async function getData() {
-  const createHttpsAgent = () => {
-    return new https.Agent({
-      rejectUnauthorized: false,
-    });
-  };
-  const axiosConfig = {
-    httpsAgent: createHttpsAgent(), // Gunakan HTTPS agent dengan konfigurasi
-  };
-  return await axios.get(process.env.API_LOCAL_URL + "api/angkatan", axiosConfig)
+  const data = await FetchLocal('api/angkatan', "GET", {name:"bayu"});
+  return data;
 }
 async function page() {
   let data = await getData();
-  let loop = data.data.data;
-  console.log(loop)
+  console.log(data)
   return (
-      <div>
-        {loop.map((el) => {
-          return <div>{el.name}</div>
-        })}
-      </div>
+     <div></div>
   )
 }
 

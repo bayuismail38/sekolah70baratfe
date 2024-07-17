@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { Fetch } from "./Helper";
 
-async function FetchProtected(url, method="GET", contentType = [], body = {}, Header = {}){
+async function FetchProtected(url, method="GET", body = {}, Header = {}){
     try {
         let dataCookies = cookies().get("Authorization");
         if (typeof dataCookies == 'undefined' || dataCookies == "" || dataCookies == null) {
@@ -12,9 +12,10 @@ async function FetchProtected(url, method="GET", contentType = [], body = {}, He
             throw "Token Error"
         }
         Header["Authorization"] = crypt.token;
-        return await Fetch(process.env.API_URL + url, method, contentType, body, Header)
+        return await Fetch(process.env.API_URL + url, method, body, Header)
     } catch (error) {
         console.log(error)
+        return
     }
 }
 
