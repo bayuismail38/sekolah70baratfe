@@ -1,0 +1,1863 @@
+{
+	"info": {
+		"_postman_id": "05e54fb1-bb6f-474c-b71d-e1d2b926e64b",
+		"name": "Sekolah",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15520507"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody)\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", data.data.token);\r",
+									"postman.setEnvironmentVariable(\"real_refresh_token\", data.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Auth/Login"
+					},
+					"response": []
+				},
+				{
+					"name": "Resfresh",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody)\r",
+									"postman.setEnvironmentVariable(\"refresh_token\", data.data.token);\r",
+									"postman.setEnvironmentVariable(\"real_refresh_token\", data.data.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": "{{web}}Auth/Refresh"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "List User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}User?page=1",
+							"host": [
+								"{{web}}User"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string",
+									"disabled": true
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "alpin",
+									"description": "string",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "3",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{web}}User/1",
+							"host": [
+								"{{web}}User"
+							],
+							"path": [
+								"1"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "admin@admin",
+									"description": "string optional if id wasnt null",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "bayu",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Email",
+									"value": "bayu@guru",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "password",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "UserName",
+									"value": "Bayuguru",
+									"type": "text"
+								},
+								{
+									"key": "RoleId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}User"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Copy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "bayu",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Email",
+									"value": "bayu@siswa",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "password",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "UserName",
+									"value": "Bayu",
+									"type": "text"
+								},
+								{
+									"key": "RoleId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}User"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "adminbayu",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Email",
+									"value": "bayu@siswa",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "password",
+									"description": "string",
+									"type": "text"
+								},
+								{
+									"key": "UserName",
+									"value": "Bayu",
+									"type": "text"
+								},
+								{
+									"key": "RoleId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": "{{web}}User/13"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{web}}User/2",
+							"host": [
+								"{{web}}User"
+							],
+							"path": [
+								"2"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "int",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Angkatan",
+			"item": [
+				{
+					"name": "List Angkatan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": "{{web}}Angkatan"
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Angkatan",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Angkatan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2024",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Angkatan"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Angkatan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Angkatan/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Angkatan",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2025",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Angkatan/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kelas",
+			"item": [
+				{
+					"name": "List Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Kelas?sortBy=desc&sortName=Name&keyword=&size=25&page=1",
+							"host": [
+								"{{web}}Kelas"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "25",
+									"description": "default 25 : int"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Kelas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}Kelas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "VI",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Kelas"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Kelas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2025",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Kelas/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KelasSub",
+			"item": [
+				{
+					"name": "List KelasSub",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}KelasSub?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}KelasSub"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Kelas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}KelasSub/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "I",
+									"type": "text"
+								},
+								{
+									"key": "isSub",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}KelasSub"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}KelasSub/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2025",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}KelasSub/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "List Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Role?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}Role"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Role",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}KelasSub/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "III",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}KelasSub"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}KelasSub/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2025",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}KelasSub/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Siswa",
+			"item": [
+				{
+					"name": "List Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Siswa?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}Siswa"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Siswa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}Siswa/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "Bayu",
+									"type": "text"
+								},
+								{
+									"key": "KelasSubKategoriId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "UsersId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "SiswaStatusId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Siswa"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Siswa/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "Bayu",
+									"type": "text"
+								},
+								{
+									"key": "KelasSubKategoriId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "UsersId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "SiswaStatusId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Siswa/10"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Semester",
+			"item": [
+				{
+					"name": "List Semester",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Semester?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}Semester"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Semester",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}Semester/12"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Semester",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2024/1",
+									"type": "text"
+								},
+								{
+									"key": "Year",
+									"value": "2024",
+									"type": "text"
+								},
+								{
+									"key": "AngkatanId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "semesterStatusId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SemesterTypeId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Semester"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Semester",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Semester/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Semester",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Year",
+									"value": "2025",
+									"type": "text"
+								},
+								{
+									"key": "AngkatanId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "semesterStatusId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "SemesterTypeId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Semester/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Semester Kelas",
+			"item": [
+				{
+					"name": "List Semester Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}SemesterKelas?sortBy=desc&keyword=&size=50&page=1",
+							"host": [
+								"{{web}}SemesterKelas"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Semester.Name",
+									"description": "string",
+									"disabled": true
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "50",
+									"description": "default 25 : int"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Semester Kelas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}SemesterKelas/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Semester Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterId",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "KelasSubKategoriId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}SemesterKelas"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Semester Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Semester/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Semester Kelas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "2024/1",
+									"type": "text"
+								},
+								{
+									"key": "Year",
+									"value": "2025",
+									"type": "text"
+								},
+								{
+									"key": "AngkatanId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "semesterStatusId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "SemesterTypeId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Semester/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Semester Kelas Siswa",
+			"item": [
+				{
+					"name": "List Semester Kelas Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}SemesterKelasSiswa?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}SemesterKelasSiswa"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Semester Kelas Siswa",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}SemesterKelasSiswa/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Semester Kelas Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}SemesterKelasSiswa"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Semester Kelas Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}SemesterKelasSiswa/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Semester Kelas Siswa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "KelasSiswaStatusId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}SemesterKelasSiswa/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "List Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Course?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}Course"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}Course/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Course"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Course/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "KelasSiswaStatusId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Course/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CourseList",
+			"item": [
+				{
+					"name": "List Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{refresh_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "refreshToken",
+								"value": "{{real_refresh_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{web}}Course?sortBy=desc&sortName=Name&keyword=&page=1",
+							"host": [
+								"{{web}}Course"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "desc",
+									"description": "string"
+								},
+								{
+									"key": "sortName",
+									"value": "Name",
+									"description": "string"
+								},
+								{
+									"key": "keyword",
+									"value": "",
+									"description": "string"
+								},
+								{
+									"key": "size",
+									"value": "",
+									"description": "default 25 : int",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "start from 0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail Course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{web}}Course/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Course"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{web}}Course/11"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{refresh_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "SemesterKelasId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "SiswaId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "KelasSiswaStatusId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{web}}Course/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
