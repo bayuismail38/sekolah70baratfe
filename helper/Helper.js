@@ -12,12 +12,14 @@ async function Fetch(url, contentType = [], body = {}, Header = []) {
         httpsAgent: createHttpsAgent(), // Gunakan HTTPS agent dengan konfigurasi
         headers: {
             'Content-Type': [],
-            ...Header
         },
     };
     var urlParams = new URLSearchParams;
     for (const iterator in body) {
         urlParams.append(iterator, body[iterator]);
+    }
+    for (const iterator in Header) {
+        axiosConfig.headers[iterator] = Header[iterator];
     }
     if(contentType.length > 0){
         axiosConfig.headers["Content-Type"].push(contentType)
